@@ -1,5 +1,6 @@
 import EventHandler from "../utils/EventHandler.js";
 import Card from "./card.js";
+import Add from "./Add.js";
 import Title from "./Title.js";
 import App from "./App.js";
 
@@ -7,6 +8,7 @@ const List = () => {
 
     let card = [];
     let title;
+    let add;
 
     const list = document.createElement('div');
     list.className = 'list';
@@ -15,12 +17,7 @@ const List = () => {
     document.getElementById('content').append(list);
     console.log('addList');
 
-    const add = document.createElement('div');
-    add.className = 'add';
-    add.id = 'add';
-    add.innerHTML = "+ Add another list";
-    list.append(add);
-
+    add = Add().getAdd();
     add.addEventListener('click', function() {
         if (!title) {
             title = Title();
@@ -32,6 +29,8 @@ const List = () => {
             add.before(card[card.length - 1]);
         }
     });
+
+    list.append(add);
 }
 
 export default List;

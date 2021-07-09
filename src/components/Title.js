@@ -6,6 +6,7 @@ const Title = () => {
     title.focus();
     // title.placeholder = 'Enter list title...';
     console.log('addTitle');
+    
     return {
         getTitle: () => {
             return title;
