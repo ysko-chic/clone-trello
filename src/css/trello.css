@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
+.wrapper {
+    /* height: auto; */
+    /* width: auto; */
+    border-radius: .5rem;
+    white-space: nowrap;
+}
+
+.wrapper div {
+    width: 200px;
+    /* padding: 10px 10px; */
+}
+
+.wrapper .list {
+    width: fit-content;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #cccccc;
+    border: 1px solid #000000;
+    border-radius: .5rem;
+    display: inline-table;
+}
+
+.wrapper .list:hover {
+    color: #ffffff;
+    background-color: #cccccc;
+}
+
+.wrapper .list .title {
+    color: #000000;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.wrapper .list .card {
+    color: #cccccc;
+    width: 200px;
+    background-color: #eeeeee;
+    padding: 10px 10px;
+    margin: 5px 0;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.wrapper .list .add {
+    /* padding: 20px; */
+}
+
+.wrapper .dropArea {
+    background-color: #61980a;
+}
+
+.wrapper .dropArea .card {
+    color: #ffffff;
+    background-color: yellowgreen;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
