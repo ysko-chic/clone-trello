@@ -5,7 +5,7 @@ const Add = () => {
     add.innerHTML = "+ Add another list";
 
     return {
-        getAdd: () => {
+        getEl: () => {
             return add;
         }
     }

@@ -8,7 +8,7 @@ const Title = () => {
     console.log('addTitle');
     
     return {
-        getTitle: () => {
+        getEl: () => {
             return title;
         }
     }

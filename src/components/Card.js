@@ -6,9 +6,20 @@ const Card = () => {
     card.contentEditable = true;
     console.log('addCard');
 
+    let index = 0;
+
+    card.addEventListener('mouseover', function() {
+        console.log("card mouseover " + index);
+    });
+
     return {
-        getCard: () => {
+        getEl: () => {
             return card;
+        },
+
+        setCard: (idx) => {
+            index = idx;
+            console.log("setCard " + idx);
         }
     }
 }

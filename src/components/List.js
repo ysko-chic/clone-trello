@@ -17,16 +17,17 @@ const List = () => {
     document.getElementById('content').append(list);
     console.log('addList');
 
-    add = Add().getAdd();
+    add = Add().getEl();
     add.addEventListener('click', function() {
         if (!title) {
             title = Title();
-            list.prepend(title.getTitle());
+            list.prepend(title.getEl());
             add.innerHTML = "+ Add a card";
             App().addList();
         } else {
-            card.push(Card().getCard());
-            add.before(card[card.length - 1]);
+            card.push(Card());
+            add.before(card[card.length - 1].getEl());
+            card[card.length - 1].setCard(card.length - 1);
         }
     });
 
