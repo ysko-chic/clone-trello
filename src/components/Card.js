@@ -1,26 +1,48 @@
-const Card = () => {
+const Card = (index) => {
+
+    const cardDiv = document.createElement('div');
+
     const card = document.createElement('span');
-    card.id = 'card';
+    card.id = 'card_' + index;
     card.className = 'card';
     card.draggable = true;
     card.contentEditable = true;
     console.log('addCard');
+    cardDiv.append(card);
 
-    let index = 0;
+    cardDiv.addEventListener('mouseover', function(e) {
+        const target = e.target;
+        const targetName = target.classList.contains('card');
 
-    card.addEventListener('mouseover', function() {
-        console.log("card mouseover " + index);
+        if (targetName) {
+            // target.addEventListener('drag', function(e) {
+            //     console.log('drag card');
+            // });
+
+            target.addEventListener('dragstart', function(e) {
+                console.log('dragstart target id >> ' + e.target.id);
+                e.dataTransfer.setData('card', target.id);
+            });
+
+            target.addEventListener('dragend', function(e) {
+                console.log('dragend card');
+            });
+        }
     });
 
     return {
         getEl: () => {
-            return card;
+            return cardDiv;
         },
-
-        setCard: (idx) => {
-            index = idx;
-            console.log("setCard " + idx);
-        }
+        setFocus: () => {
+            card.focus();
+        },
+        getLength: () => {
+            return card.innerHTML.length;
+        },
+        removeEl: () => {
+            cardDiv.remove();
+        },
     }
 }
 

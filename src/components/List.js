@@ -4,69 +4,72 @@ import Add from "./Add.js";
 import Title from "./Title.js";
 import App from "./App.js";
 
-const List = () => {
+let cardIdx = 0;
+const List = (index) => {
 
-    let cardArr = [];
     let card;
     let title;
     let add;
-    let addListBtn;
-    let addCardBtn;
+    let app = App();
 
     const list = document.createElement('div');
     list.className = 'list';
     list.draggable = true;
-    list.id = 'list';
+    list.id = 'list_' + index;
     document.getElementById('content').append(list);
-    console.log('addList');
 
-
-    // 여기 부분 CSS로 show hide 사용하기
-    add = Add().getEl();
-    add.addEventListener('click', function(e) {
+    add = Add();
+    add.getEl().addEventListener('click', function(e) {
         e.stopPropagation();
         if (!title) {
-            title = Title().getEl();
-            list.prepend(title);
-            title.focus();
-            
-            add.innerHTML = "";
+            title = Title();
+            list.prepend(title.getEl());
+            title.setFocus();
 
-            addListBtn = Add().getAddListBtnEl();
-            addListBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (title.innerHTML.length > 0) {
-                    add.innerHTML = "+ Add a card";
-                    App().addList();
+            list.style.backgroundColor = "#ebecf0";
+
+            add.setAddList(title, function(flag) {
+                if (flag == 1) {
+                    app.addList();
+                } else if (flag == 0) {
+                    title = null;
+                    list.style.backgroundColor = "hsla(0,0%,100%,.30)";
                 }
             });
-            add.append(addListBtn);
         } else {
+            if (title.getLength() > 0) {
+                card = Card(cardIdx);
+                cardIdx++;
+                add.getEl().before(card.getEl());
+                card.setFocus();
 
-            if (title.innerHTML.length > 0) {
-
-                add.innerHTML = "";
-
-                card = Card().getEl();
-                add.before(card);
-                card.focus();
-
-                addCardBtn = Add().getAddCardBtnEl();
-                addCardBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    console.log("card >> " + card.innerHTML);
-                    if (card.innerHTML.length > 0) {
-                        add.innerHTML = "+ Add a card";
-                        cardArr.push(Card());
-                        cardArr[cardArr.length - 1].setCard(cardArr.length - 1);
-                    }
+                add.setAddCard(card, function() {
+                    card = null;
                 });
-                add.append(addCardBtn);
             }
         }
     });
 
-    list.append(add);
+    list.append(add.getEl());
+
+    list.addEventListener('mouseover', function(e) {
+        console.log("list >> " + list.id);
+    });
+
+    list.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        console.log('list dragover');
+    });
+    
+    list.addEventListener('drop', function(e) {
+        e.preventDefault();
+        console.log('list drop');
+
+        const target = e.dataTransfer.getData('card');
+        if (target) {
+            add.getEl().before(document.getElementById(target));
+        }
+    });
 }
 
 export default List;

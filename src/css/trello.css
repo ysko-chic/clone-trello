@@ -5,88 +5,111 @@
 
 body {
     width: 100%;
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     justify-content: left;
     align-items: left;
+    background-color: rgb(0, 121, 191);
 }
 
 .wrapper {
-    /* height: auto; */
-    /* width: auto; */
-    border-radius: .5rem;
+    /* border-radius: .5rem; */
     white-space: nowrap;
 }
 
 .wrapper div {
-    width: 200px;
-    /* padding: 10px 10px; */
+    width: fit-content;
 }
 
 .wrapper .list {
-    width: fit-content;
-    padding: 20px;
-    margin: 10px;
-    cursor: pointer;
-    background-color: #cccccc;
-    border: 1px solid #000000;
-    border-radius: .5rem;
+    width: 250px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    /* cursor: pointer; */
+    background-color: hsla(0,0%,100%,.24);
+    border-radius: .25rem;
     display: inline-table;
 }
 
 .wrapper .list:hover {
-    /* color: #ffffff; */
-    background-color: #cccccc;
-}
-
-.wrapper .list .title {
-    color: #000000;
-    width: 200px;
-    margin-bottom: 10px;
-    font-weight: bold;
+    background-color: hsla(0,0%,100%,.30);
 }
 
 .wrapper .list .card {
-    color: #000000;
-    width: 200px;
-    background-color: #eeeeee;
+    color: #172b4d;
+    width: 250px;
+    background-color: white;
     padding: 10px 10px;
-    margin: 5px 0;
-    border-radius: .5rem;
-    box-sizing: border-box;
+    border-radius: .25rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
     display: block;
+    cursor: pointer;
+    box-shadow: lightgray 0px 1px 0px 0px;
+}
+
+.title {
+    color: #172b4d;
+    background-color: #ebecf0;
+    width: 250px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    display: none;
+    border: none;
     cursor: pointer;
 }
 
-.wrapper .list .add {
-    /* padding-top: 10px; */
+.titleInput {
+    color: #172b4d;
+    background-color: #ebecf0;
+    padding: 3px 10px;
+    width: 250px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
 
-.wrapper .list .add:hover {
-    color: #ffffff;
+.add {
+    width: 250px;
+    /* color: #172b4d; */
+    color: white;
+    padding: 10px 10px;
 }
 
-.wrapper .list .add .addListBtn {
-    width: 50px;
+/* .add:hover {
+    background-color: lightgray;
+    border-radius: .25rem;
+    cursor: pointer;
+} */
+
+.addDiv:hover {
+    cursor: pointer;
+}
+
+.addBtn {
+    width: auto;
     height: 30px;
-    visibility: visible;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    color: #ebecf0;
+    border-radius: .25rem;
+    border: none;
+    background-color: rgb(0, 121, 191);
+    
 }
-
-.wrapper .list .add .addCardBtn {
-    width: 50px;
+.addXBtn {
+    width: auto;
     height: 30px;
-    visibility: visible;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: none;
+    background-color: #ebecf0;
+    /* background-color: red; */
+    cursor: pointer;
 }
-
-.wrapper .dropArea {
-    background-color: #61980a;
-}
-
-.wrapper .dropArea .card {
-    color: #ffffff;
-    background-color: yellowgreen;
-    padding: 10px 15px;
-    margin: 5px 0;
-    border-radius: 5px;
-    box-sizing: border-box;
+.addBtn + .addXBtn {
+    /* margin-left: 5px; */
 }
