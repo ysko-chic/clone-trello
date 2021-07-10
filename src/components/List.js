@@ -6,9 +6,12 @@ import App from "./App.js";
 
 const List = () => {
 
-    let card = [];
+    let cardArr = [];
+    let card;
     let title;
     let add;
+    let addListBtn;
+    let addCardBtn;
 
     const list = document.createElement('div');
     list.className = 'list';
@@ -17,17 +20,49 @@ const List = () => {
     document.getElementById('content').append(list);
     console.log('addList');
 
+
+    // 여기 부분 CSS로 show hide 사용하기
     add = Add().getEl();
-    add.addEventListener('click', function() {
+    add.addEventListener('click', function(e) {
+        e.stopPropagation();
         if (!title) {
-            title = Title();
-            list.prepend(title.getEl());
-            add.innerHTML = "+ Add a card";
-            App().addList();
+            title = Title().getEl();
+            list.prepend(title);
+            title.focus();
+            
+            add.innerHTML = "";
+
+            addListBtn = Add().getAddListBtnEl();
+            addListBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (title.innerHTML.length > 0) {
+                    add.innerHTML = "+ Add a card";
+                    App().addList();
+                }
+            });
+            add.append(addListBtn);
         } else {
-            card.push(Card());
-            add.before(card[card.length - 1].getEl());
-            card[card.length - 1].setCard(card.length - 1);
+
+            if (title.innerHTML.length > 0) {
+
+                add.innerHTML = "";
+
+                card = Card().getEl();
+                add.before(card);
+                card.focus();
+
+                addCardBtn = Add().getAddCardBtnEl();
+                addCardBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    console.log("card >> " + card.innerHTML);
+                    if (card.innerHTML.length > 0) {
+                        add.innerHTML = "+ Add a card";
+                        cardArr.push(Card());
+                        cardArr[cardArr.length - 1].setCard(cardArr.length - 1);
+                    }
+                });
+                add.append(addCardBtn);
+            }
         }
     });
 

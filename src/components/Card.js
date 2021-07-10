@@ -1,5 +1,5 @@
 const Card = () => {
-    const card = document.createElement('div');
+    const card = document.createElement('span');
     card.id = 'card';
     card.className = 'card';
     card.draggable = true;

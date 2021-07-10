@@ -1,12 +1,11 @@
 const Title = () => {
-    const title = document.createElement('div');
+    const title = document.createElement('p');
     title.id = 'title';
     title.className = 'title';
     title.contentEditable = true;
-    title.focus();
     // title.placeholder = 'Enter list title...';
+
     console.log('addTitle');
-    
     return {
         getEl: () => {
             return title;
