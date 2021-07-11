@@ -89,7 +89,27 @@ const Add = () => {
         add.innerHTML = "+ Add a card";
         addSpanDiv.style.display = 'inline';
         addCardDiv.style.display = 'none';
-        cardCallback(0);
+        cardCallback();
+    });
+
+    document.body.addEventListener('click', function() {
+
+        // 이부분을 flag 달아서 on / off 로 바꾸면 좋을듯
+        // if (title) {
+        //     title.removeEl();
+        //     add.innerHTML = "+ Add another list";
+        //     addSpanDiv.style.display = 'inline';
+        //     addListDiv.style.display = 'none';
+        //     if (listCallback) listCallback(0);
+        // }
+
+        // if (card) {
+        //     card.removeEl();
+        //     add.innerHTML = "+ Add a card";
+        //     addSpanDiv.style.display = 'inline';
+        //     addCardDiv.style.display = 'none';
+        //     if (cardCallback) cardCallback();
+        // }
     });
 
     return {
@@ -111,7 +131,7 @@ const Add = () => {
 
             card = _card;
             cardCallback = _callback;
-        },
+        }
     }
 }
 

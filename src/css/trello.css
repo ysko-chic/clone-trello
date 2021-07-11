@@ -3,9 +3,13 @@
     padding: 0;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     width: 100%;
-    /* padding: 20px; */
+    height: 100%;
     display: flex;
     justify-content: left;
     align-items: left;
@@ -13,7 +17,6 @@ body {
 }
 
 .wrapper {
-    /* border-radius: .5rem; */
     white-space: nowrap;
 }
 
@@ -26,7 +29,6 @@ body {
     padding: 5px;
     margin-top: 5px;
     margin-left: 5px;
-    /* cursor: pointer; */
     background-color: hsla(0,0%,100%,.24);
     border-radius: .25rem;
     display: inline-table;
@@ -39,7 +41,34 @@ body {
 .wrapper .list .card {
     color: #172b4d;
     width: 250px;
-    background-color: white;
+    background-color:lightgray;
+    padding: 10px 10px;
+    border-radius: .25rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: block;
+    cursor: pointer;
+    box-shadow: lightgray 0px 1px 0px 0px;
+}
+
+/* .card {
+    position: absolute;
+    color: #172b4d;
+    width: 250px;
+    background-color:lightgray;
+    padding: 10px 10px;
+    border-radius: .25rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: block;
+    cursor: pointer;
+    box-shadow: lightgray 0px 1px 0px 0px;
+} */
+
+.wrapper .list .cardDim {
+    color: #172b4d;
+    width: 250px;
+    background-color: gray;
     padding: 10px 10px;
     border-radius: .25rem;
     margin-top: 5px;
@@ -62,7 +91,7 @@ body {
 
 .titleInput {
     color: #172b4d;
-    background-color: #ebecf0;
+    background-color: lightgray;
     padding: 3px 10px;
     width: 250px;
     margin-bottom: 5px;

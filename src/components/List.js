@@ -1,4 +1,3 @@
-import EventHandler from "../utils/EventHandler.js";
 import Card from "./card.js";
 import Add from "./Add.js";
 import Title from "./Title.js";
@@ -25,7 +24,6 @@ const List = (index) => {
             title = Title();
             list.prepend(title.getEl());
             title.setFocus();
-
             list.style.backgroundColor = "#ebecf0";
 
             add.setAddList(title, function(flag) {
@@ -42,7 +40,7 @@ const List = (index) => {
                 cardIdx++;
                 add.getEl().before(card.getEl());
                 card.setFocus();
-
+ 
                 add.setAddCard(card, function() {
                     card = null;
                 });
@@ -52,21 +50,16 @@ const List = (index) => {
 
     list.append(add.getEl());
 
-    list.addEventListener('mouseover', function(e) {
-        console.log("list >> " + list.id);
-    });
-
     list.addEventListener('dragover', function(e) {
         e.preventDefault();
-        console.log('list dragover');
     });
     
     list.addEventListener('drop', function(e) {
         e.preventDefault();
-        console.log('list drop');
-
-        const target = e.dataTransfer.getData('card');
-        if (target) {
+        if (!title) return;
+        const targetName = e.target.classList.contains('card');
+        const target = e.dataTransfer.getData('text');
+        if (!targetName && target) {
             add.getEl().before(document.getElementById(target));
         }
     });

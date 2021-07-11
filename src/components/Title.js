@@ -14,10 +14,12 @@ const Title = () => {
         title.innerHTML = titleInput.value;
     })
 
+    titleInput.addEventListener('focusout', function(e) {
+        titleInput.style.backgroundColor = "#ebecf0";
+    })
+
     titleDiv.append(titleInput);
     titleDiv.append(title);
-
-    console.log('addTitle');
 
     return {
         getEl: () => {
