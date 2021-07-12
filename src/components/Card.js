@@ -1,74 +1,103 @@
-const Card = (index) => {
+class Card {
 
-    const cardDiv = document.createElement('div');
-    cardDiv.id = 'cardDiv_' + index;
-    cardDiv.class = 'cardDiv';
-    // cardDiv.style.zIndex = 1;
+    constructor(index) {
+        this.index = index;
+        this.targetY = 0;
+        this.mouseY = 0;
+        // let dX = 0, dY = 0, posX = 0, posY = 0;
 
-    const card = document.createElement('span');
-    card.id = 'card_' + index;
-    card.className = 'card';
-    card.draggable = true;
-    card.contentEditable = true;
-    cardDiv.append(card);
+        this.cardDiv = document.createElement('div');
+        this.cardText = document.createElement('textarea');
+        this.card = document.createElement('span');
+        this.cardDim = document.createElement('div');
 
-    const cardDim = document.createElement('div');
-    cardDim.id = 'cardDim';
-    cardDim.className = 'cardDim';
+        this.setElement();
+    }
 
-    card.addEventListener('focusout', function(e) {
+    setElement = () => {
+
+        const { cardDiv, cardText, card, cardDim } = this;
+        let { index } = this;
+
+        cardDiv.id = 'cardDiv_' + index;
+        cardDiv.class = 'cardDiv';
+
+        cardText.id = 'cardText_' + index;
+        cardText.className = 'card';
+        
+        card.id = 'card_' + index;
+        card.className = 'card';
+        card.draggable = true;
+
+        console.log('card >> ' + card.id);
+
+        cardText.append(card);
+        cardDiv.append(cardText);
+        
+        // cardDim.id = 'cardDim';
+        // cardDim.className = 'cardDim';
+
+        // cardText.addEventListener('focusout', this.cardTextOnFocusOut);
+        // card.onclick = this.cardOnClick;
+        cardDiv.onmouseover = this.mouseOverHandler;
+        cardDiv.ondragenter = this.dragEnterHandler;
+    }
+
+    cardTextOnFocusOut = () => {
+        const { card, cardDiv, cardText } = this;
         card.style.backgroundColor = 'white';
-    });
+        card.innerHTML = cardText.value;
+        cardDiv.replaceChild(card, cardText);
+    }
 
-    let dX = 0, dY = 0, posX = 0, posY = 0;
-    let targetY = 0, mouseY = 0;
+    // cardOnClick = (e) => {
+    //     console.log('card onclick targetY >> ' + this.targetY + " // mouseY >> " + this.mouseY);
+    //     // const { card, cardDiv, cardText } = this;
+    //     // card.append(cardText);
+    //     // cardText.appendChild(document.createTextNode(card.value));
+    //     // cardDiv.replaceChild(cardText, card);
+    //     // cardText.focus();
+    // }
 
-    // 카드를 만들고 위치 바꾸기를 여러번 하다보면 mouseY의 값이 고정되고, mouseOverHandler 가 작동하지 않는다. 왜그럴까?
-    const mouseOverHandler = (e) => {
+    mouseOverHandler = (e) => {
+        const { dragHandler, dragStartHandler, dragEndHandler } = this;
         const target = e.target;
         const targetName = target.classList.contains('card');
-        mouseY = e.clientY;
-        console.log('mouseY >> ' + mouseY);
         if (targetName) {
             target.ondrag = dragHandler;
             target.ondragstart = dragStartHandler;
             target.ondragend = dragEndHandler;
-            target.onclick = function(e) {
-                console.log('mouseY >> ' + mouseY + " >> targetY >> " + targetY);
-            }
         }
     }
 
-    const dragHandler = (e) => {
+    dragEnterHandler = (e) => {
         e.preventDefault();
-    }
-
-    const dragStartHandler = (e) => {
-        e.dataTransfer.setData('text', e.target.id);
-    }
-
-    const dragEndHandler = (e) => {
-        // mouseY = 0;
-    }
-
-    const dragEnterHandler = (e) => {
-        e.preventDefault();
+        const { dropHandler } = this;
         const target = e.target;
         const targetName = target.classList.contains('card');
-        targetY = target.offsetTop;
-        // console.log('targetY >> ' + targetY + " // mouseY >> " + mouseY);
-
         if (targetName) {
             target.ondrop = dropHandler;
         }
     }
 
-    const dropHandler = function(e) {
+    dragHandler = (e) => {
+        e.preventDefault();
+        this.mouseY = e.clientY;
+    }
+
+    dragStartHandler = (e) => {
+        e.dataTransfer.setData('text', e.target.id);
+        this.targetY = e.target.getBoundingClientRect().top;
+    }
+
+    dragEndHandler = (e) => {
+        // mouseY = 0;
+    }
+
+    dropHandler = (e) => {
         const cardOver = e.dataTransfer.getData('text');
-        console.log("cardOver >> " + cardOver);
         if (cardOver) {
-            console.log('targetY >> ' + targetY + " // mouseY >> " + mouseY);
-            if (targetY > mouseY) {
+            if (this.targetY < this.mouseY) {
                 e.target.after(document.getElementById(cardOver));
             } else {
                 e.target.before(document.getElementById(cardOver));
@@ -78,25 +107,12 @@ const Card = (index) => {
         }
     }
 
-    cardDiv.onmouseover = mouseOverHandler;
-    cardDiv.ondragenter = dragEnterHandler;
+    setFocus = () => {
+        this.cardText.focus();
+    }
 
-    return {
-        getEl: () => {
-            return cardDiv;
-        },
-        getId: () => {
-            return cardDiv.id;
-        },
-        setFocus: () => {
-            card.focus();
-        },
-        getLength: () => {
-            return card.innerHTML.length;
-        },
-        removeEl: () => {
-            cardDiv.remove();
-        },
+    getLength = () => {
+        return this.cardText.innerHTML.length;
     }
 }
 

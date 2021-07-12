@@ -1,136 +1,122 @@
-const Add = () => {
-    const addDiv = document.createElement('div');
-    const addSpanDiv = document.createElement('div');
-    const addListDiv = document.createElement('div');
-    const addCardDiv = document.createElement('div');
+class Add {
 
-    addDiv.className = 'addDiv';
-    addSpanDiv.className = 'addDiv';
-    addListDiv.className = 'addDiv';
-    addCardDiv.className = 'addDiv';
+    constructor() {
+        this.addDiv = document.createElement('div');
+        this.addSpanDiv = document.createElement('div');
+        this.addListDiv = document.createElement('div');
+        this.addCardDiv = document.createElement('div');
 
-    addSpanDiv.style.display = 'inline';
-    addListDiv.style.display = 'none';
-    addCardDiv.style.display = 'none';
+        this.add = document.createElement('span');
+        this.addListBtn = document.createElement('button');
+        this.addCardBtn = document.createElement('button');
+        this.addListXBtn = document.createElement('button');
+        this.addCardXBtn = document.createElement('button');
 
-    const add = document.createElement('span');
-    add.className = 'add';
-    add.id = 'add';
-    add.innerHTML = "+ Add another list";
+        this.setElement();
+    }
 
-    const addListBtn = document.createElement('button');
-    addListBtn.className = 'addBtn';
-    addListBtn.innerHTML = 'Add list';
-    addListBtn.id = 'addListBtn';
+    setElement = () => {
 
-    const addCardBtn = document.createElement('button');
-    addCardBtn.className = 'addBtn';
-    addCardBtn.innerHTML = 'Add card';
-    addCardBtn.id = 'addCardBtn';
+        const { addDiv, addSpanDiv, addListDiv, addCardDiv } = this;
+        const { add, addListBtn, addCardBtn, addListXBtn, addCardXBtn } = this;
 
-    const addListXBtn = document.createElement('button');
-    addListXBtn.className = 'addXBtn';
-    addListXBtn.innerHTML = 'X';
-    addListXBtn.id = 'addListXBtn';
+        addDiv.className = 'addDiv';
+        addSpanDiv.className = 'addDiv';
+        addListDiv.className = 'addDiv';
+        addCardDiv.className = 'addDiv';
 
-    const addCardXBtn = document.createElement('button');
-    addCardXBtn.className = 'addXBtn';
-    addCardXBtn.innerHTML = 'X';
-    addCardXBtn.id = 'addCardXBtn';
-
-    addSpanDiv.append(add);
-    addListDiv.append(addListBtn);
-    addListDiv.append(addListXBtn);
-    addCardDiv.append(addCardBtn);
-    addCardDiv.append(addCardXBtn);
-
-    addDiv.append(addSpanDiv);
-    addDiv.append(addListDiv);
-    addDiv.append(addCardDiv);
-
-    let title;
-    let card;
-    let listCallback;
-    let cardCallback;
-
-    addListBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (title.getLength() > 0) {
-            title.setText();
-            add.innerHTML = "+ Add a card";
-            add.style.color = "#172b4d";
-            addSpanDiv.style.display = 'inline';
-            addListDiv.style.display = 'none';
-            listCallback(1);
-        }
-    });
-
-    addListXBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        title.removeEl();
-        add.innerHTML = "+ Add another list";
         addSpanDiv.style.display = 'inline';
         addListDiv.style.display = 'none';
-        listCallback(0);
-    });
+        addCardDiv.style.display = 'none';
+        
+        add.className = 'add';
+        add.id = 'add';
+        add.innerHTML = "+ Add another list";
+        
+        addListBtn.className = 'addBtn';
+        addListBtn.innerHTML = 'Add list';
+        addListBtn.id = 'addListBtn';
+        
+        addCardBtn.className = 'addBtn';
+        addCardBtn.innerHTML = 'Add card';
+        addCardBtn.id = 'addCardBtn';
 
-    addCardBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (card.getLength() > 0) {
+        addListXBtn.className = 'addXBtn';
+        addListXBtn.innerHTML = 'X';
+        addListXBtn.id = 'addListXBtn';
+        
+        addCardXBtn.className = 'addXBtn';
+        addCardXBtn.innerHTML = 'X';
+        addCardXBtn.id = 'addCardXBtn';
+
+        addSpanDiv.append(add);
+        addListDiv.append(addListBtn);
+        addListDiv.append(addListXBtn);
+        addCardDiv.append(addCardBtn);
+        addCardDiv.append(addCardXBtn);
+
+        addDiv.append(addSpanDiv);
+        addDiv.append(addListDiv);
+        addDiv.append(addCardDiv);
+    }
+
+    setAddList = (_title, _callback) => {
+
+        const { addListDiv, addSpanDiv, addCardDiv } = this;
+        const { add, addListBtn, addListXBtn } = this;
+
+        addListDiv.style.display = 'inline';
+        addSpanDiv.style.display = 'none';
+        addCardDiv.style.display = 'none';
+
+        addListBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (_title.getLength() > 0) {
+                _title.setText();
+                add.innerHTML = "+ Add a card";
+                add.style.color = "#172b4d";
+                addSpanDiv.style.display = 'inline';
+                addListDiv.style.display = 'none';
+                _callback(1);
+            }
+        };
+
+        addListXBtn.onclick = (e) => {
+            e.stopPropagation();
+            _title.titleDiv.remove();
+            add.innerHTML = "+ Add another list";
+            addSpanDiv.style.display = 'inline';
+            addListDiv.style.display = 'none';
+            _callback(0);
+        }
+    }
+
+    setAddCard = (_card, _callback) => {
+
+        const { addListDiv, addSpanDiv, addCardDiv } = this;
+        const { add, addCardBtn, addCardXBtn } = this;
+
+        addListDiv.style.display = 'none';
+        addSpanDiv.style.display = 'none';
+        addCardDiv.style.display = 'inline';
+
+        addCardBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (_card.getLength() > 0) {
+                add.innerHTML = "+ Add a card";
+                addSpanDiv.style.display = 'inline';
+                addCardDiv.style.display = 'none';
+                _card.cardTextOnFocusOut();
+            }
+        }
+
+        addCardXBtn.onclick = (e) => {
+            e.stopPropagation();
+            _card.cardDiv.remove();
             add.innerHTML = "+ Add a card";
             addSpanDiv.style.display = 'inline';
             addCardDiv.style.display = 'none';
-        }
-    });
-
-    addCardXBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        card.removeEl();
-        add.innerHTML = "+ Add a card";
-        addSpanDiv.style.display = 'inline';
-        addCardDiv.style.display = 'none';
-        cardCallback();
-    });
-
-    document.body.addEventListener('click', function() {
-
-        // 이부분을 flag 달아서 on / off 로 바꾸면 좋을듯
-        // if (title) {
-        //     title.removeEl();
-        //     add.innerHTML = "+ Add another list";
-        //     addSpanDiv.style.display = 'inline';
-        //     addListDiv.style.display = 'none';
-        //     if (listCallback) listCallback(0);
-        // }
-
-        // if (card) {
-        //     card.removeEl();
-        //     add.innerHTML = "+ Add a card";
-        //     addSpanDiv.style.display = 'inline';
-        //     addCardDiv.style.display = 'none';
-        //     if (cardCallback) cardCallback();
-        // }
-    });
-
-    return {
-        getEl: () => {
-            return addDiv;
-        },
-        setAddList: (_title, _callback) => {
-            addListDiv.style.display = 'inline';
-            addSpanDiv.style.display = 'none';
-            addCardDiv.style.display = 'none';
-
-            title = _title;
-            listCallback = _callback;
-        },
-        setAddCard: (_card, _callback) => {
-            addListDiv.style.display = 'none';
-            addSpanDiv.style.display = 'none';
-            addCardDiv.style.display = 'inline';
-
-            card = _card;
-            cardCallback = _callback;
+            _callback();
         }
     }
 }

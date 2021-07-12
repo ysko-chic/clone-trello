@@ -1,42 +1,45 @@
-const Title = () => {
+class Title {
 
-    const titleDiv = document.createElement('div');
-    const titleInput = document.createElement('input');
-    const title = document.createElement('h2');
-    title.id = 'title';
-    title.className = 'title';
+    constructor() {
+        this.titleDiv = document.createElement('div');
+        this.titleInput = document.createElement('input');
+        this.title = document.createElement('h2');
 
-    titleInput.id = 'titleInput';
-    titleInput.className = 'titleInput';
-    titleInput.placeholder = 'Enter list title...';
-    titleInput.addEventListener('change', function(e) {
-        e.stopPropagation();
-        title.innerHTML = titleInput.value;
-    })
+        this.setElement();
+    }
 
-    titleInput.addEventListener('focusout', function(e) {
-        titleInput.style.backgroundColor = "#ebecf0";
-    })
+    setElement = () => {
+        const { title, titleInput, titleDiv } = this;
 
-    titleDiv.append(titleInput);
-    titleDiv.append(title);
+        title.id = 'title';
+        title.className = 'title';
 
-    return {
-        getEl: () => {
-            return titleDiv;
-        },
-        setFocus: () => {
-            titleInput.focus();
-        },
-        getLength: () => {
-            return titleInput.value.length;
-        },
-        removeEl: () => {
-            titleDiv.remove();
-        },
-        setText: () => {
+        titleInput.id = 'titleInput';
+        titleInput.className = 'titleInput';
+        titleInput.placeholder = 'Enter list title...';
+        titleInput.onchange = (e) => {
+            e.stopPropagation();
             title.innerHTML = titleInput.value;
-        }
+        };
+
+        titleInput.addEventListener('focusout', function(e) {
+            titleInput.style.backgroundColor = "#ebecf0";
+        })
+
+        titleDiv.append(titleInput);
+        titleDiv.append(title);
+    }
+
+    setFocus = () => {
+        this.titleInput.focus();
+    }
+
+    getLength = () => {
+        return this.titleInput.value.length;
+    }
+    
+    setText = () => {
+        this.title.innerHTML = this.titleInput.value;
     }
 }
 
