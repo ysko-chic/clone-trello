@@ -87,6 +87,12 @@ class List {
 
         list.append(add.addDiv);
     }
+
+    refreshList = () => {
+        for (let i = 0; i < this.cardList.length; i++) {
+            this.cardList[i].setTargetY();
+        }
+    }
 }
 
 export default List;

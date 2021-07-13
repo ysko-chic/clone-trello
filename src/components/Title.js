@@ -11,6 +11,9 @@ class Title {
     setElement = () => {
         const { title, titleInput, titleDiv } = this;
 
+        titleDiv.id = 'titleDiv';
+        titleDiv.className = 'titleDiv';
+
         title.id = 'title';
         title.className = 'title';
 

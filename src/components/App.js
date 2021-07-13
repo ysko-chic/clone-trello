@@ -7,6 +7,13 @@ const App = () => {
         addList: () => {
             console.log("list len >> " + list.length);
             list.push(new List(list.length));
+        },
+
+        refreshList: () => {
+            for (let i = 0; i < list.length; i++) {
+                list[i].refreshList();
+                console.log('refresh list');
+            }
         }
     }
 }

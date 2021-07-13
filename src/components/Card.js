@@ -1,9 +1,10 @@
+import App from "./App.js";
+
 class Card {
 
     constructor(index) {
         this.index = index;
         this.targetY = 0;
-        this.mouseY = 0;
         // let dX = 0, dY = 0, posX = 0, posY = 0;
 
         this.cardDiv = document.createElement('div');
@@ -20,7 +21,7 @@ class Card {
         let { index } = this;
 
         cardDiv.id = 'cardDiv_' + index;
-        cardDiv.class = 'cardDiv';
+        cardDiv.className = 'cardDiv';
 
         cardText.id = 'cardText_' + index;
         cardText.className = 'card';
@@ -29,11 +30,9 @@ class Card {
         card.className = 'card';
         card.draggable = true;
 
-        console.log('card >> ' + card.id);
-
         cardText.append(card);
         cardDiv.append(cardText);
-        
+
         // cardDim.id = 'cardDim';
         // cardDim.className = 'cardDim';
 
@@ -48,10 +47,14 @@ class Card {
         card.style.backgroundColor = 'white';
         card.innerHTML = cardText.value;
         cardDiv.replaceChild(card, cardText);
+        this.targetY = this.card.getBoundingClientRect().top + (this.card.getBoundingClientRect().height / 2);
+    }
+
+    setTargetY = () => {
+        this.targetY = this.card.getBoundingClientRect().top + (this.card.getBoundingClientRect().height / 2);
     }
 
     // cardOnClick = (e) => {
-    //     console.log('card onclick targetY >> ' + this.targetY + " // mouseY >> " + this.mouseY);
     //     // const { card, cardDiv, cardText } = this;
     //     // card.append(cardText);
     //     // cardText.appendChild(document.createTextNode(card.value));
@@ -63,6 +66,8 @@ class Card {
         const { dragHandler, dragStartHandler, dragEndHandler } = this;
         const target = e.target;
         const targetName = target.classList.contains('card');
+        console.log("targetY >> " + this.targetY + " // boundingTop >> " + document.getElementById(target.id).parentNode.getBoundingClientRect().top + " // boundingHeight >> " + (document.getElementById(target.id).parentNode.getBoundingClientRect().height / 2));
+
         if (targetName) {
             target.ondrag = dragHandler;
             target.ondragstart = dragStartHandler;
@@ -82,26 +87,31 @@ class Card {
 
     dragHandler = (e) => {
         e.preventDefault();
-        this.mouseY = e.clientY;
     }
 
     dragStartHandler = (e) => {
-        e.dataTransfer.setData('text', e.target.id);
-        this.targetY = e.target.getBoundingClientRect().top;
+        e.dataTransfer.setData('text', document.getElementById(e.target.id).parentNode.id);
+        const targetParent = document.getElementById(e.target.id).parentNode.getBoundingClientRect();
+        this.targetY = targetParent.top + (targetParent.height / 2);
+        console.log('dragStart targetY >> ' + this.targetY);
     }
 
     dragEndHandler = (e) => {
-        // mouseY = 0;
+        const targetParent = document.getElementById(e.target.id).parentNode.getBoundingClientRect();
+        this.targetY = targetParent.top + (targetParent.height / 2);
+        console.log("dragEnd targetY >> " + this.targetY);
+        App().refreshList();
     }
 
     dropHandler = (e) => {
         const cardOver = e.dataTransfer.getData('text');
         if (cardOver) {
-            if (this.targetY < this.mouseY) {
-                e.target.after(document.getElementById(cardOver));
+            if (this.targetY < e.clientY) {
+                e.target.parentNode.after(document.getElementById(cardOver));
             } else {
-                e.target.before(document.getElementById(cardOver));
+                e.target.parentNode.before(document.getElementById(cardOver));
             }
+            
             // cardDim.remove();
             e.dataTransfer.clearData();
         }
