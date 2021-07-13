@@ -36,10 +36,12 @@ class List {
 
         list.ondragover = (e) => {
             e.preventDefault();
+            console.log('list on dropover');
         };
         
         list.ondrop = (e) => {
             e.preventDefault();
+            console.log('list on drop');
             if (!title) return;
             const targetName = e.target.classList.contains('card');
             const target = e.dataTransfer.getData('text');

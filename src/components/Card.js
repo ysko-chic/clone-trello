@@ -5,12 +5,15 @@ class Card {
     constructor(index) {
         this.index = index;
         this.targetY = 0;
-        // let dX = 0, dY = 0, posX = 0, posY = 0;
+        this.pos1 = 0;
+        this.pos2 = 0
+        this.pos3 = 0
+        this.pos4 = 0;
 
         this.cardDiv = document.createElement('div');
         this.cardText = document.createElement('textarea');
         this.card = document.createElement('span');
-        this.cardDim = document.createElement('div');
+        this.cardDim = document.createElement('span');
 
         this.setElement();
     }
@@ -30,16 +33,17 @@ class Card {
         card.className = 'card';
         card.draggable = true;
 
+        cardDim.id = 'cardDim';
+        cardDim.className = 'cardDim';
+
         cardText.append(card);
         cardDiv.append(cardText);
-
-        // cardDim.id = 'cardDim';
-        // cardDim.className = 'cardDim';
 
         // cardText.addEventListener('focusout', this.cardTextOnFocusOut);
         // card.onclick = this.cardOnClick;
         cardDiv.onmouseover = this.mouseOverHandler;
         cardDiv.ondragenter = this.dragEnterHandler;
+        cardDiv.ondragleave = this.dragLeaveHandler;
     }
 
     cardTextOnFocusOut = () => {
@@ -54,22 +58,15 @@ class Card {
         this.targetY = this.card.getBoundingClientRect().top + (this.card.getBoundingClientRect().height / 2);
     }
 
-    // cardOnClick = (e) => {
-    //     // const { card, cardDiv, cardText } = this;
-    //     // card.append(cardText);
-    //     // cardText.appendChild(document.createTextNode(card.value));
-    //     // cardDiv.replaceChild(cardText, card);
-    //     // cardText.focus();
-    // }
-
     mouseOverHandler = (e) => {
         const { dragHandler, dragStartHandler, dragEndHandler } = this;
         const target = e.target;
         const targetName = target.classList.contains('card');
-        console.log("targetY >> " + this.targetY + " // boundingTop >> " + document.getElementById(target.id).parentNode.getBoundingClientRect().top + " // boundingHeight >> " + (document.getElementById(target.id).parentNode.getBoundingClientRect().height / 2));
 
         if (targetName) {
-            target.ondrag = dragHandler;
+            // target.onmousedown = this.mouseDownHandler;
+            // target.onmousemove = dragHandler;
+            target.ondrag = dragEndHandler;
             target.ondragstart = dragStartHandler;
             target.ondragend = dragEndHandler;
         }
@@ -80,8 +77,26 @@ class Card {
         const { dropHandler } = this;
         const target = e.target;
         const targetName = target.classList.contains('card');
+
         if (targetName) {
             target.ondrop = dropHandler;
+
+            // if (this.targetY < e.clientY) {
+            //     console.log('cardDim after ' + this.cardDim.getBoundingClientRect().width);
+            //     target.after(this.cardDim);
+            // } else {
+            //     console.log('cardDim before ' + this.cardDim.getBoundingClientRect().height);
+            //     target.before(this.cardDim);
+            // }
+        }
+    }
+
+    dragLeaveHandler = (e) => {
+        e.preventDefault();
+        const target = e.target;
+        const targetName = target.classList.contains('card');
+        if (targetName) {
+            this.cardDim.remove();
         }
     }
 
@@ -89,7 +104,47 @@ class Card {
         e.preventDefault();
     }
 
+    // mouseMoveHandler = (e) => {
+    //     e.preventDefault();
+    //     const parNo = e.target.parentNode;
+    //     this.pos1 = this.pos3 - e.clientX;
+    //     this.pos2 = this.pos4 - e.clientY;
+    //     this.pos3 = e.clientX;
+    //     this.pos4 = e.clientY;
+
+    //     parNo.style.top = (parNo.offsetTop - this.pos2) + 'px';
+    //     parNo.style.left = (parNo.offsetLeft - this.pos1) + 'px';
+    // }
+
+    // mouseUpHandler = (e) => {
+    //     const parNo = e.target.parentNode;
+    //     parNo.style.position = 'none';
+    //     parNo.onmousedown = null;
+    //     parNo.onmouseup = null;
+    //     parNo.onmousemove = null;
+    // }
+
+    // mouseOutHandler = (e) => {
+    //     const parNo = e.target.parentNode;
+    //     parNo.style.position = 'none';
+    //     parNo.onmousedown = null;
+    //     parNo.onmouseup = null;
+    //     parNo.onmousemove = null;
+    // }
+
+    // mouseDownHandler = (e) => {
+    //     e.preventDefault();
+    //     const parNo = e.target.parentNode;
+    //     // parNo.onmousemove = this.mouseMoveHandler;
+    //     parNo.onmouseup = this.mouseUpHandler;
+    //     parNo.onmouseout = this.mouseOutHandler;
+    //     parNo.style.position = 'absolute';
+    //     this.pos3 = e.clientX;
+    //     this.pos4 = e.clientY;
+    // }
+
     dragStartHandler = (e) => {
+        // e.preventDefault();
         e.dataTransfer.setData('text', document.getElementById(e.target.id).parentNode.id);
         const targetParent = document.getElementById(e.target.id).parentNode.getBoundingClientRect();
         this.targetY = targetParent.top + (targetParent.height / 2);
@@ -99,7 +154,9 @@ class Card {
     dragEndHandler = (e) => {
         const targetParent = document.getElementById(e.target.id).parentNode.getBoundingClientRect();
         this.targetY = targetParent.top + (targetParent.height / 2);
-        console.log("dragEnd targetY >> " + this.targetY);
+        if (this.cardDim) {
+            this.cardDim.remove();
+        }
         App().refreshList();
     }
 
@@ -111,9 +168,8 @@ class Card {
             } else {
                 e.target.parentNode.before(document.getElementById(cardOver));
             }
-            
-            // cardDim.remove();
-            e.dataTransfer.clearData();
+            // this.cardDim.remove();
+            // e.dataTransfer.clearData();
         }
     }
 

@@ -51,23 +51,10 @@ body {
     box-shadow: lightgray 0px 1px 0px 0px;
 }
 
-/* .card {
-    position: absolute;
-    color: #172b4d;
-    width: 250px;
-    background-color:lightgray;
-    padding: 10px 10px;
-    border-radius: .25rem;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: block;
-    cursor: pointer;
-    box-shadow: lightgray 0px 1px 0px 0px;
-} */
-
 .wrapper .list .cardDim {
-    color: #172b4d;
+    color: red;
     width: 250px;
+    height: 20px;
     background-color: gray;
     padding: 10px 10px;
     border-radius: .25rem;
