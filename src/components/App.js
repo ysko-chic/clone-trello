@@ -1,4 +1,5 @@
-import List from '../components/List.js';
+import ListWrapper from '../components/ListWrapper.js';
+import List from './List.js';
 
 const list = [];
 const App = () => {

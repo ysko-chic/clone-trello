@@ -24,6 +24,12 @@ body {
     width: fit-content;
 }
 
+.wrapper .listWrapper {
+    width: fit-content;
+    height: 100%;
+    display: inline-table;
+}
+
 .wrapper .list {
     width: 250px;
     padding: 5px;
