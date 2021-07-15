@@ -71,15 +71,27 @@ class Add {
 
         addListBtn.onclick = (e) => {
             e.stopPropagation();
+            listClickHandler();
+        };
+
+        _title.titleDiv.onkeydown = (e) => {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                listClickHandler();
+            }
+        }
+
+        const listClickHandler = () => {
             if (_title.getLength() > 0) {
                 _title.setText();
+                _title.titleOnFocusOut();
                 add.innerHTML = "+ Add a card";
                 add.style.color = "#172b4d";
                 addSpanDiv.style.display = 'inline';
                 addListDiv.style.display = 'none';
                 _callback(0);
             }
-        };
+        }
 
         addListXBtn.onclick = (e) => {
             e.stopPropagation();
@@ -113,7 +125,17 @@ class Add {
 
         addCardBtn.onclick = (e) => {
             e.stopPropagation();
-            // this.addCard(_card, _callback);
+            cardClickHandler();
+        }
+
+        _card.cardDiv.onkeydown = (e) => {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                cardClickHandler();
+            }
+        }
+
+        const cardClickHandler = () => {
             if (_card.getLength() > 0) {
                 add.innerHTML = "+ Add a card";
                 addSpanDiv.style.display = 'inline';

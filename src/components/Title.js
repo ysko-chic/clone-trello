@@ -22,17 +22,21 @@ class Title {
         titleInput.id = 'titleInput';
         titleInput.className = 'titleInput';
         titleInput.placeholder = 'Enter list title...';
-        titleInput.onchange = (e) => {
-            e.stopPropagation();
-            title.innerHTML = titleInput.value;
-        };
 
-        titleInput.addEventListener('focusout', function(e) {
-            titleInput.style.backgroundColor = "#ebecf0";
-        })
-
+        titleInput.append(title);
         titleDiv.append(titleInput);
-        titleDiv.append(title);
+
+        titleInput.onclick = (e) => {
+            e.stopPropagation();
+        }
+    }
+
+    titleOnFocusOut = () => {
+        const { titleInput, title, titleDiv } = this;
+
+        title.style.backgroundColor = "#ebecf0";
+        title.innerHTML = titleInput.value;
+        titleDiv.replaceChild(title, titleInput);
     }
 
     getTitleComplete = () => {

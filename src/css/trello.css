@@ -52,6 +52,8 @@ body {
     border-radius: .25rem;
     margin-top: 5px;
     margin-bottom: 5px;
+    resize: none;
+    overflow-wrap: break-word;
     display: block;
     cursor: pointer;
     box-shadow: lightgray 0px 1px 0px 0px;
@@ -74,10 +76,11 @@ body {
 .title {
     color: #172b4d;
     background-color: #ebecf0;
+    padding: 3px 10px;
     width: 250px;
+    font-size: 13px;
     margin-bottom: 5px;
     font-weight: bold;
-    display: none;
     border: none;
     cursor: pointer;
 }

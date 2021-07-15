@@ -44,6 +44,10 @@ class Card {
         cardDiv.onmouseover = this.mouseOverHandler;
         cardDiv.ondragenter = this.dragEnterHandler;
         cardDiv.ondragleave = this.dragLeaveHandler;
+
+        cardText.onclick = (e) => {
+            e.stopPropagation();
+        }
     }
 
     cardTextOnFocusOut = () => {
