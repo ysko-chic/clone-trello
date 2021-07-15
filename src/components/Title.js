@@ -5,6 +5,8 @@ class Title {
         this.titleInput = document.createElement('input');
         this.title = document.createElement('h2');
 
+        this.isTitleComplete = false;
+
         this.setElement();
     }
 
@@ -33,6 +35,10 @@ class Title {
         titleDiv.append(title);
     }
 
+    getTitleComplete = () => {
+        return this.isTitleComplete;
+    }
+
     setFocus = () => {
         this.titleInput.focus();
     }
@@ -43,6 +49,7 @@ class Title {
     
     setText = () => {
         this.title.innerHTML = this.titleInput.value;
+        this.isTitleComplete = true;
     }
 }
 

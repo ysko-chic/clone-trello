@@ -77,7 +77,7 @@ class Add {
                 add.style.color = "#172b4d";
                 addSpanDiv.style.display = 'inline';
                 addListDiv.style.display = 'none';
-                _callback(1);
+                _callback(0);
             }
         };
 
@@ -87,7 +87,18 @@ class Add {
             add.innerHTML = "+ Add another list";
             addSpanDiv.style.display = 'inline';
             addListDiv.style.display = 'none';
-            _callback(0);
+            _callback(1);
+        }
+
+        document.body.onclick = (e) => {
+            e.stopPropagation();
+            document.body.onclick = null;
+            if (_title.getTitleComplete()) return;
+            _title.titleDiv.remove();
+            add.innerHTML = "+ Add another list";
+            addSpanDiv.style.display = 'inline';
+            addListDiv.style.display = 'none';
+            _callback(1);
         }
     }
 
@@ -102,11 +113,13 @@ class Add {
 
         addCardBtn.onclick = (e) => {
             e.stopPropagation();
+            // this.addCard(_card, _callback);
             if (_card.getLength() > 0) {
                 add.innerHTML = "+ Add a card";
                 addSpanDiv.style.display = 'inline';
                 addCardDiv.style.display = 'none';
                 _card.cardTextOnFocusOut();
+                _callback(0);
             }
         }
 
@@ -116,7 +129,18 @@ class Add {
             add.innerHTML = "+ Add a card";
             addSpanDiv.style.display = 'inline';
             addCardDiv.style.display = 'none';
-            _callback();
+            _callback(1);
+        }
+
+        document.body.onclick = (e) => {
+            e.stopPropagation();
+            document.body.onclick = null;
+            if (_card.getCardComplete()) return;
+            _card.cardDiv.remove();
+            add.innerHTML = "+ Add a card";
+            addSpanDiv.style.display = 'inline';
+            addCardDiv.style.display = 'none';
+            _callback(1);
         }
     }
 }

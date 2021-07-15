@@ -16,7 +16,6 @@ class List {
         this.cardList = [];
 
         this.title = null;
-        this.card = null;
         this.add = new Add();
         this.cardWrapper = new CardWrapper();
         
@@ -25,16 +24,18 @@ class List {
 
     setElement = () => {
 
-        this.listDiv.append(this.cardWrapper.cardWrapper);
-        this.listDiv.append(this.add.addDiv);
-        document.getElementById('content').append(this.listDiv);
+        const { setComponents, listDiv, cardWrapper, add } = this;
 
-        this.setComponents();
+        listDiv.append(cardWrapper.cardWrapper);
+        listDiv.append(add.addDiv);
+        document.getElementById('content').append(listDiv);
+
+        setComponents();
     }
 
     setDropZone = (title) => {
 
-        let { listDiv, cardWrapper } = this;
+        const { listDiv, cardWrapper } = this;
 
         listDiv.ondragover = (e) => {
             e.preventDefault();
@@ -52,44 +53,53 @@ class List {
     }
 
     setComponents = () => {
-
-        let { app, listDiv, title, add, card, cardList, index } = this;
-        const { setDropZone } = this;
-
+        const { add } = this;
         add.addDiv.onclick = (e) => {
             e.stopPropagation();
-            if (!title) {
-                title = new Title();
-                listDiv.prepend(title.titleDiv);
-                title.setFocus();
-                listDiv.style.backgroundColor = "#ebecf0";
+            this.create();
+        }
+    }
 
-                add.setAddList(title, (flag) => {
-                    if (flag == 1) {
-                        app.addList();
-                        setDropZone(title);
-                    } else if (flag == 0) {
-                        title = null;
-                        listDiv.style.backgroundColor = "hsla(0,0%,100%,.30)";
+    create = () => {
+
+        let card = null;
+        const { create, setDropZone, app, listDiv, add, cardList, index, cardWrapper } = this;
+
+        if (!this.title) {
+            this.title = new Title();
+            listDiv.prepend(this.title.titleDiv);
+            this.title.setFocus();
+            listDiv.style.backgroundColor = "#ebecf0";
+
+            add.setAddList(this.title, (flag) => {
+                if (flag == 0) {
+                    app.addList();
+                    setDropZone(title);
+                } else if (flag == 1) {
+                    this.title = null;
+                    listDiv.style.backgroundColor = "hsla(0,0%,100%,.30)";
+                }
+            });
+        } else {
+            if (this.title.getTitleComplete()) {
+                card = new Card(index + cardList.length.toString());
+                cardWrapper.cardWrapper.append(card.cardDiv);
+                card.setFocus();
+                add.setAddCard(card, (flag) => {
+                    if (flag == 0) {
+                        cardList.push(card);
+                        create();
+                    } else if (flag == 1) {
+                        card = null;
                     }
                 });
-            } else {
-                if (title.getLength() > 0) {
-                    card = new Card(index + cardList.length.toString());
-                    cardList.push(card);
-                    this.cardWrapper.cardWrapper.append(card.cardDiv);
-                    card.setFocus();
-                    add.setAddCard(card, function() {
-                        card = null;
-                    });
-                }
             }
         }
     }
 
     refreshList = () => {
-        for (let i = 0; i < this.cardList.length; i++) {
-            this.cardList[i].setTargetY();
+        for (let i of this.cardList) {
+            i.setTargetY();
         }
     }
 }

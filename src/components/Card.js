@@ -4,6 +4,7 @@ class Card {
 
     constructor(index) {
         this.index = index;
+        this.isCardComplete = false;
         this.targetY = 0;
         this.pos1 = 0;
         this.pos2 = 0
@@ -20,8 +21,7 @@ class Card {
 
     setElement = () => {
 
-        const { cardDiv, cardText, card, cardDim } = this;
-        let { index } = this;
+        const { cardDiv, cardText, card, cardDim, index } = this;
 
         cardDiv.id = 'cardDiv_' + index;
         cardDiv.className = 'cardDiv';
@@ -52,6 +52,11 @@ class Card {
         card.innerHTML = cardText.value;
         cardDiv.replaceChild(card, cardText);
         this.targetY = this.card.getBoundingClientRect().top + (this.card.getBoundingClientRect().height / 2);
+        this.isCardComplete = true;
+    }
+
+    getCardComplete = () => {
+        return this.isCardComplete;
     }
 
     setTargetY = () => {

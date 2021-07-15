@@ -1,4 +1,3 @@
-import ListWrapper from '../components/ListWrapper.js';
 import List from './List.js';
 
 const list = [];
@@ -11,8 +10,8 @@ const App = () => {
         },
 
         refreshList: () => {
-            for (let i = 0; i < list.length; i++) {
-                list[i].refreshList();
+            for (let i of list) {
+                i.refreshList();
                 console.log('refresh list');
             }
         }
