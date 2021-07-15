@@ -157,7 +157,6 @@ class Card {
         if (this.cardDim) {
             this.cardDim.remove();
         }
-        App().refreshList();
     }
 
     dropHandler = (e) => {
@@ -168,6 +167,7 @@ class Card {
             } else {
                 e.target.parentNode.before(document.getElementById(cardOver));
             }
+            App().refreshList();
             // this.cardDim.remove();
             // e.dataTransfer.clearData();
         }
@@ -178,7 +178,7 @@ class Card {
     }
 
     getLength = () => {
-        return this.cardText.innerHTML.length;
+        return this.cardText.value.length;
     }
 }
 

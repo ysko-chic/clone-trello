@@ -38,12 +38,10 @@ class List {
 
         listDiv.ondragover = (e) => {
             e.preventDefault();
-            console.log('list on dropover');
         };
         
         listDiv.ondrop = (e) => {
             e.preventDefault();
-            console.log('list on drop ' + title);
             if (!title || cardWrapper.cardWrapper.childElementCount > 0) return;
             const targetName = e.target.classList.contains('card');
             const target = e.dataTransfer.getData('text');
