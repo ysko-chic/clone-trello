@@ -189,6 +189,8 @@ class Card {
             } else {
                 e.target.parentNode.before(elmnt);
             }
+            console.log("dropHandler");
+            App().saveInfo();
             App().refreshList();
             // this.cardDim.remove();
             // e.dataTransfer.clearData();
@@ -206,6 +208,10 @@ class Card {
 
     getLength = () => {
         return this.cardText.value.length;
+    }
+
+    getCardText = () => {
+        return this.card.innerHTML;
     }
 }
 

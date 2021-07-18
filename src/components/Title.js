@@ -64,6 +64,10 @@ class Title {
         this.title.innerHTML = this.titleInput.value;
         this.isTitleComplete = true;
     }
+
+    getTitleText = () => {
+        return this.title.innerHTML;
+    }
 }
 
 export default Title;

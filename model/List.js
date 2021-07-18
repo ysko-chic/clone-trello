@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const listSchema = mongoose.Schema({
     lists: [
         {
             title: {
@@ -14,6 +14,6 @@ const userSchema = mongoose.Schema({
 });
 
 
-const User = mongoose.model("User", userSchema);
+const List = mongoose.model("List", listSchema);
 
-module.exports = { User };
+module.exports = { List };

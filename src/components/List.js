@@ -80,6 +80,7 @@ class List {
                 if (flag == 0) {
                     app.addList();
                     setDropZone(title);
+                    app.saveInfo();
                 } else if (flag == 1) {
                     this.title = null;
                     listDiv.style.backgroundColor = "hsla(0,0%,100%,.30)";
@@ -93,6 +94,7 @@ class List {
                 add.setAddCard(card, (flag) => {
                     if (flag == 0) {
                         cardList.push(card);
+                        app.saveInfo();
                         create();
                     } else if (flag == 1) {
                         card = null;
@@ -127,6 +129,14 @@ class List {
         for (let i of this.cardList) {
             i.setTargetY();
         }
+    }
+
+    getTitle = () => {
+        return this.title;
+    }
+
+    getCard = () => {
+        return this.cardList;
     }
 }
 
