@@ -1,6 +1,6 @@
 class Title {
 
-    constructor() {
+    constructor(item) {
         this.titleDiv = document.createElement('div');
         this.titleInput = document.createElement('input');
         this.title = document.createElement('h2');
@@ -8,6 +8,10 @@ class Title {
         this.isTitleComplete = false;
 
         this.setElement();
+
+        if (item) {
+            this.setTitle(item);
+        }
     }
 
     setElement = () => {
@@ -33,7 +37,6 @@ class Title {
 
     titleOnFocusOut = () => {
         const { titleInput, title, titleDiv } = this;
-
         title.style.backgroundColor = "#ebecf0";
         title.innerHTML = titleInput.value;
         titleDiv.replaceChild(title, titleInput);
@@ -41,6 +44,12 @@ class Title {
 
     getTitleComplete = () => {
         return this.isTitleComplete;
+    }
+
+    setTitle = (item) => {
+        this.titleOnFocusOut();
+        this.title.innerHTML = item.title;
+        this.isTitleComplete = true;
     }
 
     setFocus = () => {

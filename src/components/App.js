@@ -5,7 +5,6 @@ const App = () => {
 
     return {
         addList: () => {
-            console.log("list len >> " + list.length);
             list.push(new List(list.length));
         },
 
@@ -14,6 +13,10 @@ const App = () => {
                 i.refreshList();
                 console.log('refresh list');
             }
+        },
+
+        setList: (item) => {
+            list.push(new List(list.length, item));
         }
     }
 }

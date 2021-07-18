@@ -2,7 +2,10 @@ import App from "./App.js";
 
 class Card {
 
-    constructor(index) {
+    constructor(index, cardContent) {
+
+        console.log('card constructor ');
+
         this.index = index;
         this.isCardComplete = false;
         this.targetY = 0;
@@ -17,6 +20,10 @@ class Card {
         this.cardDim = document.createElement('span');
 
         this.setElement();
+
+        if (cardContent) {
+            this.setCard(cardContent);
+        }
     }
 
     setElement = () => {
@@ -89,6 +96,7 @@ class Card {
 
         if (targetName) {
             target.ondrop = dropHandler;
+            target.style.backgroundColor = "lightgray";
 
             // if (this.targetY < e.clientY) {
             //     console.log('cardDim after ' + this.cardDim.getBoundingClientRect().width);
@@ -105,6 +113,7 @@ class Card {
         const target = e.target;
         const targetName = target.classList.contains('card');
         if (targetName) {
+            target.style.backgroundColor = 'white';
             this.cardDim.remove();
         }
     }
@@ -169,17 +178,26 @@ class Card {
     }
 
     dropHandler = (e) => {
+        const target = e.target;
         const cardOver = e.dataTransfer.getData('text');
-        if (cardOver) {
+        const elmnt = document.getElementById(cardOver);
+
+        if (elmnt) {
+            target.style.backgroundColor = 'white';
             if (this.targetY < e.clientY) {
-                e.target.parentNode.after(document.getElementById(cardOver));
+                e.target.parentNode.after(elmnt);
             } else {
-                e.target.parentNode.before(document.getElementById(cardOver));
+                e.target.parentNode.before(elmnt);
             }
             App().refreshList();
             // this.cardDim.remove();
             // e.dataTransfer.clearData();
         }
+    }
+
+    setCard = (cardContent) => {
+        this.cardTextOnFocusOut();
+        this.card.innerHTML = cardContent;
     }
 
     setFocus = () => {
