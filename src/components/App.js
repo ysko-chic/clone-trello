@@ -1,30 +1,22 @@
 import List from './List.js';
 
-const list = [];
+const lists = [];
 const App = () => {
-
-    // window.addEventListener("unload", (e) => {
-    //     e.preventDefault();
-
-    //     console.log('unload saveinfo');
-    //     this.saveInfo();
-    // });
 
     return {
         addList: () => {
-            list.push(new List(list.length));
-            console.log('list len >> ' + list.length);
+            lists.push(new List(lists.length));
         },
 
         refreshList: () => {
-            for (let i of list) {
+            for (let i of lists) {
                 i.refreshList();
                 console.log('refresh list');
             }
         },
 
         setList: (item) => {
-            list.push(new List(list.length, item));
+            lists.push(new List(lists.length, item));
         },
 
         saveInfo: () => {
@@ -32,16 +24,16 @@ const App = () => {
                 lists: []
             }
 
-            for (let index of list) {
+            for (let list of lists) {
                 var info = {
                     title: null,
                     cards: []
                 }
-                if (index.getTitle() != null) {
-                    info.title = index.getTitle().title.innerHTML;
+                if (list.getTitle() != null) {
+                    info.title = list.getTitle().title.innerHTML;
                 }
-                for (let card of index.getCard()) {
-                    info.cards.push(card.getCardText())
+                for (let card of list.getCard()) {
+                    info.cards.push(card.firstChild.innerHTML)
                 }
                 if (info.title) {
                     infos.lists.push(info);

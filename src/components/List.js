@@ -52,6 +52,7 @@ class List {
             const target = e.dataTransfer.getData('text');
             if (!targetName && target) {
                 cardWrapper.cardWrapper.append(document.getElementById(target));
+                this.app.saveInfo();
             }
         };
     }
@@ -60,7 +61,6 @@ class List {
         const { add } = this;
         add.addDiv.onclick = (e) => {
             e.stopPropagation();
-            console.log('setcompo')
             this.create();
         }
     }
@@ -121,13 +121,14 @@ class List {
             }
         }
 
+        this.refreshList();
         this.add.add.style.color = "#172b4d";
         this.add.add.innerHTML = "+ Add a card";
     }
 
     refreshList = () => {
-        for (let i of this.cardList) {
-            i.setTargetY();
+        for (let card of this.cardList) {
+            card.setTargetY();
         }
     }
 
@@ -136,7 +137,7 @@ class List {
     }
 
     getCard = () => {
-        return this.cardList;
+        return this.cardWrapper.cardWrapper.childNodes;
     }
 }
 

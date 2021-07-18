@@ -6,7 +6,6 @@ async function conn () {
 
     await fetch("http://localhost:5000/lists")
     .then(res => {
-        console.log("res >> " + res);
         return res.json();
     })
     .then(data => {

@@ -3,9 +3,6 @@ import App from "./App.js";
 class Card {
 
     constructor(index, cardContent) {
-
-        console.log('card constructor ');
-
         this.index = index;
         this.isCardComplete = false;
         this.targetY = 0;
@@ -62,7 +59,7 @@ class Card {
         card.style.backgroundColor = 'white';
         card.innerHTML = cardText.value;
         cardDiv.replaceChild(card, cardText);
-        this.targetY = this.card.getBoundingClientRect().top + (this.card.getBoundingClientRect().height / 2);
+        this.targetY = card.getBoundingClientRect().top + (card.getBoundingClientRect().height / 2);
         this.isCardComplete = true;
     }
 
@@ -166,7 +163,6 @@ class Card {
         e.dataTransfer.setData('text', document.getElementById(e.target.id).parentNode.id);
         const targetParent = document.getElementById(e.target.id).parentNode.getBoundingClientRect();
         this.targetY = targetParent.top + (targetParent.height / 2);
-        console.log('dragStart targetY >> ' + this.targetY);
     }
 
     dragEndHandler = (e) => {
@@ -189,7 +185,6 @@ class Card {
             } else {
                 e.target.parentNode.before(elmnt);
             }
-            console.log("dropHandler");
             App().saveInfo();
             App().refreshList();
             // this.cardDim.remove();
