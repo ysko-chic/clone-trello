@@ -79,7 +79,7 @@ class Card {
         if (targetName) {
             // target.onmousedown = this.mouseDownHandler;
             // target.onmousemove = dragHandler;
-            target.ondrag = dragEndHandler;
+            target.ondrag = dragHandler;
             target.ondragstart = dragStartHandler;
             target.ondragend = dragEndHandler;
         }
