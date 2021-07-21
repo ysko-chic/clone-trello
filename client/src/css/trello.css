@@ -67,7 +67,7 @@ body {
     box-shadow: lightgray 0px 1px 0px 0px;
 }
 
-.title {
+.wrapper .list .title {
     color: #172b4d;
     background-color: #ebecf0;
     padding: 3px 10px;
@@ -79,7 +79,7 @@ body {
     cursor: pointer;
 }
 
-.titleInput {
+.wrapper .list .titleInput {
     color: #172b4d;
     background-color: lightgray;
     padding: 3px 10px;
@@ -90,21 +90,21 @@ body {
     cursor: pointer;
 }
 
-.titleDiv {
+.wrapper .list .titleDiv {
     height: 26.5px;
 }
 
-.add {
+.wrapper .list .add {
     width: 250px;
     color: white;
     padding: 10px 10px;
 }
 
-.addDiv:hover {
+.wrapper .list .addDiv:hover {
     cursor: pointer;
 }
 
-.addBtn {
+.wrapper .list .addBtn {
     width: auto;
     height: 30px;
     padding-left: 10px;
@@ -116,7 +116,7 @@ body {
     background-color: rgb(0, 121, 191);
     
 }
-.addXBtn {
+.wrapper .list .addXBtn {
     width: auto;
     height: 30px;
     padding-left: 15px;
@@ -126,6 +126,6 @@ body {
     /* background-color: red; */
     cursor: pointer;
 }
-.addBtn + .addXBtn {
+.wrapper .list .addBtn + .addXBtn {
     /* margin-left: 5px; */
 }
