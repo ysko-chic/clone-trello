@@ -20,12 +20,12 @@ const App = () => {
         },
 
         saveInfo: () => {
-            var infos = {
+            const infos = {
                 lists: []
             }
 
             for (let list of lists) {
-                var info = {
+                const info = {
                     title: null,
                     cards: []
                 }
