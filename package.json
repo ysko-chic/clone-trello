@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "./",
+  "scripts": {
+    "server": "nodemon server/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run dev --prefix client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.2",
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {}
+}

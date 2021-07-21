@@ -1,7 +1,13 @@
 # clone-trello
 
 # 의존 모듈
-# VSCode Extensions Live Server install
+# npm i --save-dev webpack webpack-cli
+
+# 클라이언트 빌드
+# npm run build
 
 # 클라이언트 실행
-# index.html init
+# npm run start
+
+# 클라이언트 빌드 후 실행
+# npm run dev
