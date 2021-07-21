@@ -1,6 +1,10 @@
 # clone-trello
 
-# 실행 : npm run dev
+# SERVER 환경 설정 : root 디렉토리에서 npm install
+
+# CLIENT 환경 설정 : client 디렉토리에서 npm install
+
+# 실행 : root 디렉토리에서 npm run dev
 
 # 실행 화면
 <img width="100%" src="https://user-images.githubusercontent.com/56531738/126269761-6ce0e30a-1abe-46e5-bd07-d14263898445.gif"/>
